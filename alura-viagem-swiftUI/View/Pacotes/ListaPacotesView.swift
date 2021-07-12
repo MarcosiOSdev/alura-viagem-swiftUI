@@ -29,21 +29,19 @@ struct ListaPacotesView: View {
     
     var body: some View {
         NavigationView {
-            // Usar Scrollview + LazyVStack ao invés de List, para remover o separatorStyle da List em iOS 14
-            List {
-                ForEach(categorias.keys.sorted(), id: \.self) { chave in
-                    SecaoPacotesView(nomeDaSecao: chave, pacotes: categorias[chave] ?? [])
-                }
+            //TODO: Usar Scrollview + LazyVStack ao invés de List, para remover o separatorStyle da List em iOS 14
+            List(categorias.keys.sorted(), id: \.self) { chave in
+                SecaoPacotesView(nomeDaSecao: chave, pacotes: categorias[chave] ?? [])
             }
             .navigationBarTitle("Pacotes")
             .padding([.leading, .trailing], -10)
             .background(Color(red: 247/255, green: 247/255, blue: 247/255))
-            .onAppear {
-                setupViewAppearence()
-            }
-            .onDisappear {
-                rollbackViewAppearence()
-            }
+        }
+        .onAppear {
+            setupViewAppearence()
+        }
+        .onDisappear {
+            rollbackViewAppearence()
         }
     }
 }
